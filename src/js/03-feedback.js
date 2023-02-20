@@ -4,6 +4,18 @@ import { save, load, remove } from './storage';
 const filterForm = document.querySelector('.feedback-form');
 const LOCAL_STORAGE_KEY = 'feedback-form-state';
 
+const handleSubmit = evt => {
+  evt.preventDefault();
+
+  const {
+    elements: { email, message },
+  } = evt.currentTarget;
+
+  console.log({ email: email.value, message: message.value });
+  evt.currentTarget.reset();
+  remove(LOCAL_STORAGE_KEY);
+};
+
 filterForm.addEventListener('submit', handleSubmit);
 
 initForm();
@@ -32,15 +44,3 @@ function initForm() {
     filterForm.elements[name].value = value;
   });
 }
-
-const handleSubmit = evt => {
-  evt.preventDefault();
-
-  const {
-    elements: { email, message },
-  } = evt.currentTarget;
-
-  console.log({ email: email.value, message: message.value });
-  evt.currentTarget.reset();
-  remove(LOCAL_STORAGE_KEY);
-};
